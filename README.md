@@ -33,10 +33,13 @@ This gallery application was developed with archival purposes in mind; the origi
 Options are passed as an object in the .IdGallery() call.
 
 {
-	selectedColor: **string indicating desired background color for a selected image***
-	notSelected: **string indicating desired background color for a non-selected image***
-	commentsSource: **string containing the address of the source of the comments***
-	scrollDelay: **integer describing the length of the scroll animation in milliseconds***
+	selectedColor: **string indicating desired background color for a selected image**
+	
+	notSelected: **string indicating desired background color for a non-selected image**
+	
+	commentsSource: **string containing the address of the source of the comments**
+	
+	scrollDelay: **integer describing the length of the scroll animation in milliseconds**
 }
 
 Example:
