@@ -33,6 +33,7 @@ This gallery application was developed with archival purposes in mind; the origi
 Options are passed as an object in the .IdGallery() call.
 
 {
+
 	selectedColor: **string indicating desired background color for a selected image**
 	
 	notSelected: **string indicating desired background color for a non-selected image**
