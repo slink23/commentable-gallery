@@ -3,16 +3,19 @@
 	require "php/db_config.php";
 	
 	function db_conn() {
-		$passed_conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-		if ($conn->connect_error) {
-			die("Connection Failed: " . $conn->connect_error);
+		$passed_conn = null;
+		try {
+			$passed_conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME,DB_USER,DB_PASS);
+			// set the PDO error mode to exception
+			$passed_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		}
+		catch(PDOException $e)
+		{
+			echo "Connection failed: " . $e->getMessage();
 		}
 		return $passed_conn;
 	}
 
-	function db_kill_conn($passed_conn) {
-		$passed_conn->close;
-	}
 
 	$conn = db_conn();
 
@@ -20,12 +23,12 @@
 
 	$retrieval_query = "SELECT comment FROM idgallery_comments WHERE file_name='".$image_name."'";
 
-	$result = mysqli_query($conn, $retrieval_query);
+	$result = $conn->query($retrieval_query);
 	
-	if ($result->num_rows > 0) {
+	if ($result->rowCount() > 0) {
 		$data = array();
 		header('Content-Type: application/json');
-		while ($row = $result->fetch_assoc()) {
+		foreach ($result as $row) {
 			array_push($data, ['photoComment'=>$row['comment']]);
 		}
 		echo json_encode($data);
@@ -35,6 +38,6 @@
 		echo "[]";
 	}
 
-	db_kill_conn($conn);
+	$conn=null;
 	
 ?>
