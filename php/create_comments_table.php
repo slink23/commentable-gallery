@@ -3,16 +3,17 @@
 require "db_config.php";
 
 function db_conn() {
-	$passed_conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-	if ($conn->connect_error) {
-		die("Connection Failed: " . $conn->connect_error);
+	$passed_conn = null;
+	try {
+		$passed_conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME,DB_USER,DB_PASS);
+		// set the PDO error mode to exception
+		$passed_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	}
+	catch(PDOException $e)
+	{
+		echo "Connection failed: " . $e->getMessage();
 	}
 	return $passed_conn;
-}
-
-
-function db_kill_conn($passed_conn) {
-	$passed_conn->close;
 }
 
 $conn = db_conn();
@@ -23,12 +24,15 @@ $create_CommentsTable = "CREATE TABLE IF NOT EXISTS `idgallery_comments` (
   `file_name` varchar(255) NOT NULL,
   PRIMARY KEY (`comment_id`)
 );";
-if ($conn->query($create_CommentsTable) === TRUE) {
-	echo("Comments Table Created!\r\n");
-} else {
-	echo "FAILURE! " . $conn->error;
+
+try {
+	$conn->exec($create_CommentsTable);
+	echo "Comments Table Created!";
+}
+catch(PDOException $e) {
+	echo $create_CommentsTable . "<br/>". $e->getMessage();
 }
 
-db_kill_conn($conn);
+$conn = null;
 
 ?>
