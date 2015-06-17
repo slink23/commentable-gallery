@@ -35,7 +35,7 @@ This gallery application was developed with archival purposes in mind; the origi
 
 4) If everything executes properly there, you'll see an appropriate message.
 
-5) Open up the "gallery.html" file contained within.
+5) Open up the "sample_gallery.php" file contained within.
 
 6) Edit it as described within the comments.
 
