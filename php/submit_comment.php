@@ -1,17 +1,18 @@
 <?php
-
-	require "db_config.php";
+	require "php/db_config.php";
 	
 	function db_conn() {
-		$passed_conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-		if ($conn->connect_error) {
-			die("Connection Failed: " . $conn->connect_error);
+		$passed_conn = null;
+		try {
+			$passed_conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME,DB_USER,DB_PASS);
+			// set the PDO error mode to exception
+			$passed_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		}
+		catch(PDOException $e)
+		{
+			echo "Connection failed: " . $e->getMessage();
 		}
 		return $passed_conn;
-	}
-
-	function db_kill_conn($passed_conn) {
-		$passed_conn->close;
 	}
 
 	$conn = db_conn();
@@ -29,11 +30,14 @@
 		$comment = test_input($_POST["comment"]);
 		$img_name = test_input($_POST["image_name"]);
 		$insertion_query = "INSERT INTO idgallery_comments (comment,file_name) VALUES ('".$comment."','".$img_name."')";
-		if ($conn->query($insertion_query) === FALSE) {
-			echo "Insertion failed; comment not added! ".$conn->error;
+		try {
+			$conn->exec($insertion_query);
+		}
+		catch(PDOException $e) {
+			echo $sql."<br/>".$e->getMessage();
 		}
 	}
 	
-	db_kill_conn($conn);
+	$conn = null;
 	
 ?>
