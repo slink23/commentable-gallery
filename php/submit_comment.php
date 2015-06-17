@@ -1,6 +1,6 @@
 <?php
 
-	require "php/db_config.php";
+	require "db_config.php";
 	
 	function db_conn() {
 		$passed_conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
