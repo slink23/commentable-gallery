@@ -8,25 +8,37 @@ This gallery application was developed with archival purposes in mind; the origi
 *** WHAT YOU NEED (OUT OF THE BOX) ***
 
 1) jQuery v.1.11.x or higher.
+
 2) PHP 5.x or higher.
+
 3) Bootstrap 3.x or higher.
+
 4) SQL/MySQL
 
 *** WHAT YOU NEED TO KNOW (IF YOU WANT TO MODIFY IT) ***
 
 1) HTML
+
 2) Javascript
+
 3) jQuery
+
 4) Familiarity with JSON protocol
 
 *** BASIC OUT OF THE BOX IMPLEMENTATION ***
 
 1) Edit the "db_config.php" file in the PHP folder with your SQL information
+
 2) Upload the files to your server.
+
 3) Navigate to the "create_comments_table.php" file in your favorite web browser (which is Chrome, in case you were wondering).
+
 4) If everything executes properly there, you'll see an appropriate message.
+
 5) Open up the "gallery.html" file contained within.
+
 6) Edit it as described within the comments.
+
 
 *** OPTIONS ***
 
